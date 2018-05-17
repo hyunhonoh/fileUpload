@@ -1,0 +1,62 @@
+{# Boilerplate for a Django Bindings template #}
+{% extends "splunkdj:base_with_app_bar.html" %}
+
+{% load splunkmvc %}
+
+{% block title %}{{app_name}} Home Page{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}{{app_name}}/custom.css" />
+
+    <style>
+        .main-area {
+            margin: 0px auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 10px;
+            width: 800px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+
+    <div>
+        <div class="main-area">
+            <p>FileUpload : {{message}}</p>
+        <form action
+              method="post"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="form-group">
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <a class="btn btn-default btn-file">
+                            <span class="fileupload-new">Select file</span>
+                            <span class="fileupload-exists">Change</span>
+                            <input name="file" type="file" class="file-input"/></a>
+                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
+                        <input class="btn btn-default" type="submit" value="UPLOAD" />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span><h3>File List<h3></span>
+            <ul>
+            {% for filelist in filelists  %}
+                <li> {{filelist}} </li>
+            {% endfor %}
+            </ul>
+        </div>
+        </div>
+    </div>
+{% endblock content%}
+
+{% block js %}
+    <script>
+        console.log("Custom JavaScript Goes Here (look in your template)!");
+    </script>
+{% endblock js %}
